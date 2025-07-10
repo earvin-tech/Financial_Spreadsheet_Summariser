@@ -2,7 +2,6 @@ const js = require("@eslint/js");
 const globals = require("globals");
 const { defineConfig } = require("eslint/config");
 
-
 module.exports = defineConfig([
   {
     files: ["**/*.{js,mjs,cjs}"],
@@ -12,18 +11,16 @@ module.exports = defineConfig([
   {
     files: ["**/*.js"],
     languageOptions: {
-      sourceType: "commonjs" 
+      sourceType: "commonjs",
     },
   },
   {
     files: ["**/*.{js,mjs,cjs}"],
     languageOptions: {
-      globals: globals.node
-    }, 
+      globals: globals.node,
+    },
   },
-  { 
-    ignores: [
-      "node_modules",
-    ],
+  {
+    ignores: ["node_modules"],
   },
 ]);
