@@ -4,7 +4,8 @@
   "description": "A financial spreadsheet summariser with AI assistance.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "npx lefthook install"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,9 @@
+pre-commit:
+  parallel: true
+  commands:
+    eslint:
+      glob: "*.{js,jsx}"
+      run: npx --no-install eslint --config server/eslint.config.js {staged_files} --fix
+    prettier:
+      glob: "*.{js,jsx,json,css,md}"
+      run: ./server/node_modules/.bin/prettier --write {staged_files}
