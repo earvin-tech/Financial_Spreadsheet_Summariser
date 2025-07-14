@@ -14,32 +14,39 @@ const handleValidationErrors = (request, response, next) => {
 const validateRegister = [
   body("username")
     .trim()
-    .notEmpty().withMessage("Username is required")
-    .isLength({ min: 3 }).withMessage("Username must be at least 3 characters long"),
+    .notEmpty()
+    .withMessage("Username is required")
+    .isLength({ min: 3 })
+    .withMessage("Username must be at least 3 characters long"),
 
-  body("email")
-    .trim()
-    .isEmail().withMessage("Email must be valid"),
+  body("email").trim().isEmail().withMessage("Email must be valid"),
 
   body("password")
-    .isLength({ min: 8 }).withMessage("Password must be at least 8 characters long")
-    .matches(/[A-Z]/).withMessage("Password must contain an uppercase letter")
-    .matches(/[a-z]/).withMessage("Password must contain a lowercase letter")
-    .matches(/[!@#$%^&*]/).withMessage("Password must contain a special character (!@#$%^&*)"),
+    .isLength({ min: 8 })
+    .withMessage("Password must be at least 8 characters long")
+    .matches(/[A-Z]/)
+    .withMessage("Password must contain an uppercase letter")
+    .matches(/[a-z]/)
+    .withMessage("Password must contain a lowercase letter")
+    .matches(/[!@#$%^&*]/)
+    .withMessage("Password must contain a special character (!@#$%^&*)"),
 
   handleValidationErrors,
 ];
 
 // Validator for password update
 const validatePasswordUpdate = [
-  body("oldPassword")
-    .notEmpty().withMessage("Please enter your old password"),
+  body("oldPassword").notEmpty().withMessage("Please enter your old password"),
 
   body("newPassword")
-    .isLength({ min: 8 }).withMessage("Password must be at least 8 characters long")
-    .matches(/[A-Z]/).withMessage("Password must contain an uppercase letter")
-    .matches(/[a-z]/).withMessage("Password must contain a lowercase letter")
-    .matches(/[!@#$%^&*]/).withMessage("Password must contain a special character (!@#$%^&*)"),
+    .isLength({ min: 8 })
+    .withMessage("Password must be at least 8 characters long")
+    .matches(/[A-Z]/)
+    .withMessage("Password must contain an uppercase letter")
+    .matches(/[a-z]/)
+    .withMessage("Password must contain a lowercase letter")
+    .matches(/[!@#$%^&*]/)
+    .withMessage("Password must contain a special character (!@#$%^&*)"),
 
   handleValidationErrors,
 ];
@@ -50,15 +57,18 @@ const validateLogin = [
     .optional()
     .trim()
     .toLowerCase()
-    .isEmail().withMessage("If logging in by email, email must be valid"),
+    .isEmail()
+    .withMessage("If logging in by email, email must be valid"),
 
   body("username")
     .optional()
     .trim()
-    .isLength({ min: 3 }).withMessage("If logging in by username, username must be at least 3 characters"),
+    .isLength({ min: 3 })
+    .withMessage(
+      "If logging in by username, username must be at least 3 characters"
+    ),
 
-  body("password")
-    .notEmpty().withMessage("Password is required"),
+  body("password").notEmpty().withMessage("Password is required"),
 
   body().custom((body) => {
     if (!body.email && !body.username) {
@@ -72,8 +82,7 @@ const validateLogin = [
 
 // Validator for account deletion
 const validateDeleteUser = [
-  body("password")
-    .notEmpty().withMessage("Password is required"),
+  body("password").notEmpty().withMessage("Password is required"),
 
   handleValidationErrors,
 ];
