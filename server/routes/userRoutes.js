@@ -20,7 +20,7 @@ const router = express.Router();
 router.post("/register", validateRegister, registerUser);
 
 // POST /api/users/login - Login
-router.post("login", validateLogin, loginUser);
+router.post("/login", validateLogin, loginUser);
 
 // GET /api/users/me - Get current user
 router.get("/me", getCurrentUser);
