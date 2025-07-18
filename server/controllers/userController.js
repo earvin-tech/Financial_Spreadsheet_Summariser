@@ -40,7 +40,7 @@ const loginUser = catchAsync(async (request, response) => {
 
   const user = await User.findOne(email ? { email } : { username });
 
-  if (!user || !user.matchPassword(password)) {
+  if (!user || !(await user.matchPassword(password))) {
     throwError("Invalid credentials", 401);
   }
 
@@ -62,7 +62,7 @@ const deleteUser = catchAsync(async (request, response) => {
   const { password } = request.body;
 
   const user = await User.findById(request.user._id);
-  if (!user || !user.matchPassword(password)) {
+  if (!user || !(await user.matchPassword(password))) {
     throwError("Invalid credentials", 401);
   }
 
@@ -78,7 +78,7 @@ const updatePassword = catchAsync(async (request, response) => {
   const { oldPassword, newPassword } = request.body;
 
   const user = await User.findById(request.user._id);
-  if (!user || !user.matchPassword(oldPassword)) {
+  if (!user || !(await user.matchPassword(oldPassword))) {
     throwError("Old password is incorrect", 401);
   }
 
