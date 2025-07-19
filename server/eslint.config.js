@@ -23,4 +23,13 @@ module.exports = defineConfig([
   {
     ignores: ["node_modules"],
   },
+  {
+    files: ["**/__tests__/**/*.js", "**/tests/**/*.js"],
+    languageOptions: {
+      globals: globals.jest,
+    },
+  },
+  {
+    ignores: ["node_modules"],
+  },
 ]);

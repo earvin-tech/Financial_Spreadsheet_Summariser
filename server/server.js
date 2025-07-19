@@ -2,7 +2,9 @@ const dotenv = require("dotenv");
 const app = require("./index");
 const connectDB = require("./config/db");
 
-dotenv.config();
+if (process.env.NODE_ENV !== "test") {
+  dotenv.config();
+}
 
 const PORT = process.env.PORT || 3000;
 
