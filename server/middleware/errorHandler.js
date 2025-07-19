@@ -1,0 +1,16 @@
+// eslint-disable-next-line no-unused-vars
+const errorHandler = (err, request, response, next) => {
+  if (process.env.NODE_ENV !== "test") {
+    console.error("❌ Error caught by errorHandler:", err);
+  }
+
+  const statusCode = err.statusCode || 500;
+
+  response.status(statusCode).json({
+    success: false,
+    message: err.message || "Something went wrong",
+    stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
+  });
+};
+
+module.exports = errorHandler;
