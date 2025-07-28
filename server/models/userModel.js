@@ -1,6 +1,14 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
+/**
+ * User schema for MongoDB using Mongoose.
+ *
+ * Fields:
+ * - `username`: A unique username, required, min 3 characters, letters/numbers/underscores only.
+ * - `email`: A unique email address, required, lowercase.
+ * - `password`: A hashed password, required, min 8 characters, must include uppercase and special character.
+ */
 const userSchema = new mongoose.Schema(
   {
     username: {
@@ -39,7 +47,13 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// Hash passwords before saving
+/**
+ * Pre-save hook to hash the user's password.
+ * @function
+ * @memberof User
+ * @param {Function} next - Express next middleware function.
+ * @returns {Promise<void>}
+ */
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
@@ -52,7 +66,14 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-//Method to compare passwords
+/**
+ * Compares a plain text password with the hashed password stored in the database.
+ * @async
+ * @function matchPassword
+ * @memberof User
+ * @param {string} enteredPassword - Password entered by the user.
+ * @returns {Promise<boolean>} True if the passwords match, false otherwise.
+ */
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };

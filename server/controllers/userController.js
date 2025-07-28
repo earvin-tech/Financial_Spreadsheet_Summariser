@@ -2,14 +2,29 @@ const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const generateToken = require("../utils/generateToken");
 
-// Helper to throw error with status code
+/**
+ * Helper to throw an error with a custom status code
+ * @param {string} message - Error message. 
+ * @param {number} statusCode - HTTP status code for the error.
+ * @throws {Error} Throws an error with the specified status code. 
+ */
 const throwError = (message, statusCode) => {
   const err = new Error(message);
   err.statusCode = statusCode;
   throw err;
 };
 
-// POST /api/users/register
+/**
+ * Registers a new user and returns a JWT token.
+ * 
+ * POST - /api/users/register
+ * @async
+ * @function registerUser
+ * @access public
+ * @param {import("express").Request} request - Express request object.
+ * @param {import("express").Response} response - Express response object.
+ * @returns {Promise<void>} Sends a JSON response with the new user's details and JWT token.
+ */
 const registerUser = catchAsync(async (request, response) => {
   const { username, email, password } = request.body;
 
@@ -34,7 +49,17 @@ const registerUser = catchAsync(async (request, response) => {
   });
 });
 
-// POST /api/users/login
+/**
+ * Logs in a user using email or username and returns a JWT token.
+ * 
+ * POST - /api/users/login
+ * @async
+ * @function loginUser
+ * @access public
+ * @param {import("express").Request} request - Express request object.
+ * @param {import("express").Response} response - Express response object.
+ * @returns {Promise<void>} Sends a JSON response with user details and JWT token.
+ */
 const loginUser = catchAsync(async (request, response) => {
   const { username, email, password } = request.body;
 
@@ -57,7 +82,17 @@ const loginUser = catchAsync(async (request, response) => {
   });
 });
 
-// DELETE /api/users/me
+/**
+ * Deletes the currently authenticated user.
+ *
+ * DELETE - /api/users/me
+ * @async
+ * @function deleteUser
+ * @access protected
+ * @param {import("express").Request} request - Express request object.
+ * @param {import("express").Response} response - Express response object.
+ * @returns {Promise<void>} Sends a success message after user deletion.
+ */
 const deleteUser = catchAsync(async (request, response) => {
   const { password } = request.body;
 
@@ -73,7 +108,17 @@ const deleteUser = catchAsync(async (request, response) => {
   });
 });
 
-// PATCH /api/users/me
+/**
+ * Updates the authenticated user's password.
+ *
+ * PATCH - /api/users/me
+ * @async
+ * @function updatePassword
+ * @access protected
+ * @param {import("express").Request} request - Express request object.
+ * @param {import("express").Response} response - Express response object.
+ * @returns {Promise<void>} Sends a success message after password update.
+ */
 const updatePassword = catchAsync(async (request, response) => {
   const { oldPassword, newPassword } = request.body;
 
@@ -94,7 +139,17 @@ const updatePassword = catchAsync(async (request, response) => {
   });
 });
 
-// GET /api/users/me
+/**
+ * Retrieves details of the currently authenticated user.
+ *
+ * GET - /api/users/me
+ * @async
+ * @function getCurrentUser
+ * @access protected
+ * @param {import("express").Request} request - Express request object.
+ * @param {import("express").Response} response - Express response object.
+ * @returns {Promise<void>} Sends a JSON response with user details.
+ */
 const getCurrentUser = catchAsync(async (request, response) => {
   const user = await User.findById(request.user._id).select("-password -salt");
 

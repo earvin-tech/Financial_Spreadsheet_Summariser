@@ -1,5 +1,16 @@
 const { body, validationResult } = require("express-validator");
 
+/**
+ * Handles validation errors from express-validator.
+ *
+ * If errors are found, responds with status 400 and a JSON object containing
+ * all validation error details. If there are no errors, it calls the next middleware.
+ * @function handleValidationErrors
+ * @param {import("express").Request} request - Express request object.
+ * @param {import("express").Response} response - Express response object.
+ * @param {import("express").NextFunction} next - Express next function.
+ * @returns {void}
+ */
 const handleValidationErrors = (request, response, next) => {
   const errors = validationResult(request);
   if (!errors.isEmpty()) {
@@ -10,7 +21,15 @@ const handleValidationErrors = (request, response, next) => {
   next();
 };
 
-// Validator for registration
+/**
+ * Validation chain for user registration.
+ *
+ * Validates:
+ * - `username`: Required, minimum 3 characters.
+ * - `email`: Must be a valid email.
+ * - `password`: Minimum 8 characters, must include uppercase, lowercase, and special character.
+ * @type {Array<import("express-validator").ValidationChain|Function>}
+ */
 const validateRegister = [
   body("username")
     .trim()
@@ -34,7 +53,14 @@ const validateRegister = [
   handleValidationErrors,
 ];
 
-// Validator for password update
+/**
+ * Validation chain for password updates.
+ *
+ * Validates:
+ * - `oldPassword`: Required.
+ * - `newPassword`: Minimum 8 characters, must include uppercase, lowercase, and special character.
+ * @type {Array<import("express-validator").ValidationChain|Function>}
+ */
 const validatePasswordUpdate = [
   body("oldPassword").notEmpty().withMessage("Please enter your old password"),
 
@@ -51,7 +77,14 @@ const validatePasswordUpdate = [
   handleValidationErrors,
 ];
 
-// Validator for login
+/**
+ * Validation chain for user login.
+ *
+ * Validates:
+ * - Either `email` (valid format) or `username` (minimum 3 characters) is provided.
+ * - `password`: Required.
+ * @type {Array<import("express-validator").ValidationChain|Function>}
+ */
 const validateLogin = [
   body("email")
     .optional()
@@ -80,10 +113,15 @@ const validateLogin = [
   handleValidationErrors,
 ];
 
-// Validator for account deletion
+/**
+ * Validation chain for account deletion.
+ *
+ * Validates:
+ * - `password`: Required.
+ * @type {Array<import("express-validator").ValidationChain|Function>}
+ */
 const validateDeleteUser = [
   body("password").notEmpty().withMessage("Password is required"),
-
   handleValidationErrors,
 ];
 
