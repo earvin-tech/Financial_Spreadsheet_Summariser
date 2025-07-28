@@ -4,9 +4,9 @@ const generateToken = require("../utils/generateToken");
 
 /**
  * Helper to throw an error with a custom status code
- * @param {string} message - Error message. 
+ * @param {string} message - Error message.
  * @param {number} statusCode - HTTP status code for the error.
- * @throws {Error} Throws an error with the specified status code. 
+ * @throws {Error} Throws an error with the specified status code.
  */
 const throwError = (message, statusCode) => {
   const err = new Error(message);
@@ -16,7 +16,7 @@ const throwError = (message, statusCode) => {
 
 /**
  * Registers a new user and returns a JWT token.
- * 
+ *
  * POST - /api/users/register
  * @async
  * @function registerUser
@@ -51,7 +51,7 @@ const registerUser = catchAsync(async (request, response) => {
 
 /**
  * Logs in a user using email or username and returns a JWT token.
- * 
+ *
  * POST - /api/users/login
  * @async
  * @function loginUser
