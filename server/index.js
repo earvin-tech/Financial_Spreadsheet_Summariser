@@ -1,6 +1,7 @@
 const express = require("express");
 const userRoutes = require("./routes/userRoutes");
 const errorHandler = require("./middleware/errorHandler");
+const uploadRoute = require("./routes/uploadRoute");
 
 const app = express();
 
@@ -15,7 +16,7 @@ app.use(express.json());
 
 /**
  * Test route for verifying server status.
- * @route GET /test
+ * GET /test
  * @returns {string} Returns a simple Hello World message.
  */
 app.get("/test", (request, response) => {
@@ -24,6 +25,9 @@ app.get("/test", (request, response) => {
 
 // Mount user-related API routes
 app.use("/api/users", userRoutes);
+
+//Mount upload route
+app.use("/api/upload", uploadRoute);
 
 // Global error-handling middleware
 app.use(errorHandler);
