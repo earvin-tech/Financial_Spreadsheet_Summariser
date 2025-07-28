@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/earvin-tech/Financial_Spreadsheet_Summariser#readme",
   "devDependencies": {
+    "@arkweid/lefthook": "^0.7.7",
     "concurrently": "^9.2.0"
   }
 }
