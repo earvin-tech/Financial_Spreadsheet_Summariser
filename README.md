@@ -28,7 +28,7 @@ An AI-powered Express.js backend that processes financial spreadsheets (CSV/Exce
 | Linting & Formatting | ESLint, Prettier                     | Ensure code consistency and quality                                      |
 | Testing            | Jest, Supertest                        | API integration and functional tests                                     |
 | Containerization   | Docker, Docker Compose                 | Dev and test environment isolation                                       |
-| CI/CD              | GitHub, Husky, lint-staged             | Pre-commit checks and automated workflows                                |
+| CI/CD              | GitHub, lint-staged             | Pre-commit checks and automated workflows                                |
 | Deployment         | Render (Backend), Vercel (Frontend)    | Cloud deployment (in progress)                                           |
 
 ---
@@ -58,7 +58,6 @@ server/
 │   ├── upload.test.js
 │   └── sample.test.js
 ├── Dockerfile
-├── docker-compose.yml
 ├── .dockerignore
 ├── .env
 ├── .env.test
@@ -149,4 +148,3 @@ Covers:
 - [GitHub](https://github.com/earvin-tech)  
 - [Dev.to](https://dev.to/earvintech)
 
-> _Built with ☕ and the dream of replacing spreadsheet overload with beautiful summaries._

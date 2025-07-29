@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const { handleUpload } = require("../controllers/uploadController");
+const verifyToken = require("../middleware/verifyToken");
 
 const router = express.Router();
 
@@ -30,6 +31,6 @@ const upload = multer({
 });
 
 // POST /api/upload
-router.post("/", upload.single("file"), handleUpload);
+router.post("/", verifyToken, upload.single("file"), handleUpload);
 
 module.exports = router;
