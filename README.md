@@ -1,78 +1,152 @@
-# Financial_Spreadsheet_Summariser AI Agent
+# 📊 Financial Spreadsheet Summariser AI Agent
 
-A financial spreadsheet summariser with AI assistance. 
+An AI-powered Express.js backend that processes financial spreadsheets (CSV/Excel), converts them to structured data, and generates a professional summary using OpenAI. Includes full user authentication, file upload, and containerized development setup.
 
-This AI agent will work as follows:
-1. Allow users to upload CSV or Excel files
-2. Parse and structure data into JSON format
-3. Using OpenAI GPT to generate a professional summary in natural language.
-4. Display summary in a clean manner on a React frontend UI
+---
 
+## 🧠 How It Works
 
-## Tech Stack
+1. Users upload a CSV or Excel file  
+2. The file is parsed and structured into JSON format  
+3. OpenAI GPT API generates a summary in professional natural language  
+4. The result is displayed on a React frontend (WIP)
 
-**Layer**       | **Technology**                | **Purpose**
----         | ---                       | ---
-Frontend    | React, Taiilwind CSS      | UI for user login, registration, file upload, and summary display
-Backend     | Node.js, Express.js       | REST API with user authentication, file upload, parsing, and OpenAI summarisation
-Database    | MongoDB, Mongoose         | Store user credentials securely for authentication, store summaries (future implementation)
-Auth and Security | bcrypt, jsonwebtoken  | Hash passwords and implement JWT-based authentication for protected routes
-File upload middleware   | Multer       | Handle CSV and Excel file uploads
-File parsing    | csv-parse (CSV), exceljs (Excel)  | Parse uploaded files into structured JSON for summarisation
-AI integration  | OpenAI GPT API    | Generate natural language summaries based on parsed data
-Environment variables   | dotenv    | Store secrets like Mongo URI, JWT secret, OpenAI key securely
-Deployment  | Render, Vercel, Docker(later implementation)  | Hosting for public demo
-Version control and CI/CD   | GitHub, GitHub actions
-Dev Tools   | nodemon, eslint, prettier, jest, supertest    | Improve development speed, code quality, and testing capability
+---
 
-## Development Scripts
+## 🧰 Tech Stack
 
-| **Command**      | **Description**                    |
-| --- | --- |
-| `npm run dev`    | Start server with nodemon          |
-| `npm run lint`   | Run ESLint for code quality checks |
-| `npm run format` | Run Prettier to auto-format code   |
+| Layer              | Tech                                  | Purpose                                                                  |
+|--------------------|----------------------------------------|--------------------------------------------------------------------------|
+| Frontend           | React, Tailwind CSS                    | UI for uploading files and viewing summaries (WIP)                       |
+| Backend            | Node.js, Express.js                    | REST API with auth, upload, and AI integration                           |
+| Auth & Security    | bcrypt, jsonwebtoken                   | Secure user registration/login + route protection                        |
+| File Upload        | Multer                                 | Handle CSV and Excel uploads                                             |
+| File Parsing       | csv-parse (CSV), ExcelJS (Excel)       | Convert spreadsheet files to structured JSON                             |
+| AI Integration     | OpenAI GPT API                         | Summarise financial data in natural language                             |
+| Validation         | express-validator                      | Validate all incoming requests and payloads                              |
+| Env Management     | dotenv                                 | Manage secrets like Mongo URI, JWT secret, OpenAI API key                |
+| Linting & Formatting | ESLint, Prettier                     | Ensure code consistency and quality                                      |
+| Testing            | Jest, Supertest                        | API integration and functional tests                                     |
+| Containerization   | Docker, Docker Compose                 | Dev and test environment isolation                                       |
+| CI/CD              | GitHub, Husky, lint-staged             | Pre-commit checks and automated workflows                                |
+| Deployment         | Render (Backend), Vercel (Frontend)    | Cloud deployment (in progress)                                           |
 
-## Environment variables
-Create a .env file based on .env.sample:
+---
 
-```
-PORT=
-MONGO_URI=
-JWT_SECRET=
-OPENAI_API_KEY=
-```
-
-## Project Structure (Backend)
+## 📁 Backend Structure
 
 ```
 server/
-  config/
-    db.js
-  routes/
-  controllers/
-  models/
-  middleware/
-  index.js
-  server.js
-  .env
-  .env.sample
-  eslint.config.js
-  .prettierrc
-  package.json
+├── config/
+│   └── db.js
+├── controllers/
+│   ├── userController.js
+│   └── uploadController.js
+├── middleware/
+│   ├── catchAsync.js
+│   ├── errorHandler.js
+│   └── validateUser.js
+├── routes/
+│   ├── userRoutes.js
+│   └── uploadRoutes.js
+├── models/
+│   └── userModel.js
+├── utils/
+│   └── generateToken.js
+├── tests/
+│   ├── user.test.js
+│   ├── upload.test.js
+│   └── sample.test.js
+├── Dockerfile
+├── docker-compose.yml
+├── .dockerignore
+├── .env
+├── .env.test
+├── .env.sample
+├── server.js
+└── index.js
 ```
-## Setup Instructions
 
-1. Clone this repository
-2. Run `npm install` inside `/server`
-3. Create your `.env` based on `.env.sample`
-4. Start the server with `npm run dev`
+---
 
-## Upcoming Features
-- Full user auth flow (register/login)
-  
-- Excel upload support
-  
-- OpenAI summary route integration
-  
-- React frontend implementation
+## ⚙️ Development Scripts
+
+| Command           | Description                              |
+|-------------------|------------------------------------------|
+| `npm run dev`     | Start server with nodemon (dev mode)     |
+| `npm test`        | Run tests with Jest                      |
+| `npm run lint`    | Run ESLint checks                        |
+| `npm run format`  | Format code using Prettier               |
+
+---
+
+## 🐳 Docker Setup
+
+> Run backend and MongoDB together for consistent dev/testing.
+
+```bash
+docker-compose up --build
+```
+
+Access the API at: `http://localhost:3000`
+
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` file inside `server/` based on this template:
+
+```env
+PORT=3000
+MONGO_URI=mongodb://localhost:27017/financebot
+JWT_SECRET=your_secret
+OPENAI_API_KEY=your_openai_key
+NODE_ENV=development
+```
+
+Also create a `.env.test` for running tests:
+
+```env
+MONGO_URI=mongodb://localhost:27017/financebot_test
+JWT_SECRET=test_secret
+NODE_ENV=test
+```
+
+---
+
+## ✅ Running Tests
+
+Ensure Docker is running and connected to MongoDB, then:
+
+```bash
+npm test
+```
+
+Covers:
+
+- User registration & login  
+- Auth-protected access  
+- File upload validation
+
+---
+
+## 🚧 Upcoming Features
+
+- [x] User registration and login  
+- [x] File upload & validation  
+- [x] Containerized dev setup  
+- [x] Pre-commit hooks with Husky  
+- [ ] Excel file upload support  
+- [ ] OpenAI summary integration  
+- [ ] React UI for uploads and summaries  
+- [ ] User dashboard with file history  
+
+---
+
+## 👨‍💻 Author
+
+**Earvin Tumpao**  
+- [GitHub](https://github.com/earvin-tech)  
+- [Dev.to](https://dev.to/earvintech)
+
+> _Built with ☕ and the dream of replacing spreadsheet overload with beautiful summaries._
